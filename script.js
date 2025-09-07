@@ -8,10 +8,11 @@ window.addEventListener("load", async function () {
         })
         .then(data => {
             const cats = document.getElementById('categories');
+            cats.innerHTML = '';
             for (const category of data.categories) {
                 const catElement = document.createElement('div');
                 catElement.className = '';
-                catElement.innerHTML = `<div class="mt-2 p-1 hover:bg-green-700 hover:text-white w-full hover:rounded hover:cursor-pointer" onclick="loadCategory('${category.id}')">${category.category_name}</div>
+                catElement.innerHTML = `<div class="mt-2 p-1 hover:bg-green-700 hover:text-white w-full hover:rounded hover:cursor-pointer" onclick="loadCategory('${category.id}')" id="cat${category.id}">${category.category_name}</div>
       `;
 
                 // Append to container
@@ -24,6 +25,9 @@ window.addEventListener("load", async function () {
 
     // get all plants
     loadPlants('https://openapi.programming-hero.com/api/plants');
+
+    // load cart items
+    updateCartDisplay();
 })
 
 function loadPlants(url) {
@@ -38,7 +42,7 @@ function loadPlants(url) {
         .then(data => {
             const plants = document.getElementById('plants');
             plants.innerHTML = '';
-            for (const plant of data.plants) {
+            data.plants.slice(0, 12).forEach(plant => {
                 const plantElement = document.createElement('div');
                 plantElement.innerHTML = `<div class="card bg-base-100 w-full shadow-sm">
                     <figure class="p-4">
@@ -61,11 +65,39 @@ function loadPlants(url) {
 
                 // Append to container
                 plants.appendChild(plantElement);
-            };
+            });
         })
         .catch(error => {
             console.error('Error:', error);
         });
+}
+
+function updateCartDisplay() {
+    const cart = getCartItems();
+    if (cart.length === 0) {
+        document.getElementById('cart').innerHTML = '<span class="mt-2">Your cart is empty</span>';
+        return;
+    }
+    const cartContainer = document.getElementById('cart');
+    cartContainer.innerHTML = '';
+    for (const item of cart) {
+        const itemElement = document.createElement('div');
+        itemElement.className = 'flex justify-between mt-2';
+        itemElement.innerHTML = `<div class="flex justify-between items-center bg-[#F0FDF4] w-full p-2">
+            <div><span class="font-semibold">${item.name}</span><br/><span class="text-gray-500">৳${item.price} x 1</span></div>
+            <div><button class="text-red-500 cursor-pointer" onclick="removeFromCart('${item.name}');">X</button></div>
+            </div>
+        `;
+        cartContainer.appendChild(itemElement);
+    }
+    const total = cart.reduce((sum, item) => sum + parseFloat(item.price), 0);
+    const totalElement = document.createElement('div');
+    totalElement.className = 'flex justify-between font-bold border-t border-gray-200 pt-2 mt-2';
+    totalElement.innerHTML = `
+        <span>Total</span>
+        <span>৳${total.toFixed(2)}</span>
+    `;
+    cartContainer.appendChild(totalElement);
 }
 
 function showDetails(plantId) {
@@ -98,6 +130,44 @@ function showDetails(plantId) {
 }
 
 function loadCategory(categoryId) {
+    setActiveCategory(categoryId);
     loadPlants('https://openapi.programming-hero.com/api/category/' + categoryId);
 }
 
+function addToCart(name, price) {
+    const cart = getCartItems();
+    const existingItem = cart.find(item => item.name === name);
+
+    if (!existingItem) {
+        const newItem = { name, price };
+        cart.push(newItem);
+    }
+
+    saveCartItems(cart);
+    updateCartDisplay();
+}
+
+function saveCartItems(cart) {
+    localStorage.setItem("plantCart", JSON.stringify(cart));
+}
+
+function getCartItems() {
+    const cartData = localStorage.getItem("plantCart");
+    return cartData ? JSON.parse(cartData) : [];
+}
+
+function removeFromCart(name) {
+    const cart = getCartItems();
+    const updatedCart = cart.filter(item => item.name !== name);
+    saveCartItems(updatedCart);
+    updateCartDisplay();
+}
+
+function setActiveCategory(categoryId) {
+    const childElements = document.getElementById('categories').querySelectorAll('*');
+    childElements.forEach(child => {
+        child.classList.remove('bg-green-700', 'text-white', 'rounded', 'cursor-pointer');
+    });
+    let activeCat = document.getElementById('cat' + categoryId);
+    activeCat.classList.add('bg-green-700', 'text-white', 'rounded', 'cursor-pointer');
+}

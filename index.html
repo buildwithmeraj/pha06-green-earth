@@ -63,16 +63,20 @@
         <div class="grid grid-cols-6 gap-4 px-32">
             <div class="bg-white p-4 rounded-xl h-fit">
                 <h1 class="font-bold text-xl">Categories</h1>
-                <p id="categories"></p>
+                <div id="categories">
+                    <div class="text-center"><span class="loading loading-bars loading-xs"></span></span></div>
+                </div>
             </div>
-            <div class="col-span-4 grid grid-cols-3 gap-4" id="plants">
-
+            <div class="col-span-4 grid grid-cols-3 gap-4 justify-center" id="plants">
+                <div></div>
+                <div class="text-center"><span class="animate-pulse loading loading-ring loading-xl"></span></div>
+                <div></div>
             </div>
-            <div class="bg-white">
-                <h1>Your Cart</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste, minima, voluptatem porro aliquid,
-                    nemo a itaque error veniam aspernatur saepe dicta placeat inventore. Nobis necessitatibus ipsam
-                    voluptates, consequatur sed veniam!</p>
+            <div class="bg-white p-4 rounded-xl h-fit">
+                <h1 class="font-bold text-xl">Your Cart</h1>
+                <div id="cart">
+                    <div class="text-center"><span class="loading loading-bars loading-xs"></span></div>
+                </div>
             </div>
         </div>
 
