@@ -12,7 +12,7 @@ window.addEventListener("load", async function () {
             for (const category of data.categories) {
                 const catElement = document.createElement('div');
                 catElement.className = '';
-                catElement.innerHTML = `<div class="mt-2 p-1 hover:bg-green-700 hover:text-white w-full hover:rounded hover:cursor-pointer" onclick="loadCategory('${category.id}')" id="cat${category.id}">${category.category_name}</div>
+                catElement.innerHTML = `<div class="mt-2 p-1 hover:bg-green-700 hover:text-white w-full hover:rounded hover:cursor-pointer" onclick="loadCategory('${category.id}')" id="cat${category.id}"><i class="fa-solid fa-tree"></i> ${category.category_name}</div>
       `;
 
                 // Append to container
@@ -57,7 +57,7 @@ function loadPlants(url) {
                             <div class="font-bold">৳${plant.price}</div>
                         </div>
                         <div class="card-actions">
-                            <button class="btn bg-green-800 text-white rounded-3xl w-full" onclick="addToCart('${plant.name}','${plant.price}')">Add to Cart</button>
+                            <button class="btn bg-green-800 text-white rounded-3xl w-full" onclick="addToCart('${plant.name}','${plant.price}')"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
                         </div>
                     </div>
                 </div>
@@ -83,9 +83,9 @@ function updateCartDisplay() {
     for (const item of cart) {
         const itemElement = document.createElement('div');
         itemElement.className = 'flex justify-between mt-2';
-        itemElement.innerHTML = `<div class="flex justify-between items-center bg-[#F0FDF4] w-full p-2">
+        itemElement.innerHTML = `<div class="flex justify-between items-center bg-[#F0FDF4] w-full p-2 rounded-lg">
             <div><span class="font-semibold">${item.name}</span><br/><span class="text-gray-500">৳${item.price} x 1</span></div>
-            <div><button class="text-red-500 cursor-pointer" onclick="removeFromCart('${item.name}');">X</button></div>
+            <div><button class="text-red-600 cursor-pointer" onclick="removeFromCart('${item.name}');"><i class="fa-solid fa-xmark text-xl"></i></button></div>
             </div>
         `;
         cartContainer.appendChild(itemElement);
@@ -112,14 +112,12 @@ function showDetails(plantId) {
         .then(data => {
             const modalBody = document.getElementById('modal-body');
             modalBody.innerHTML = `
+            <h3 class="font-bold text-2xl mb-2">${data.plants.name}</h3>
             <img src="${data.plants.image}" alt="Image" class="rounded-xl h-60 w-full object-cover mb-4 " />
-            <h3 class="font-bold text-lg mb-2">${data.plants.name}</h3>
-            <p class="text-justify mb-2">A card component has a figure, a body part, and inside body there are title and actions parts. The figure is a container for images or videos. The body part contains the main content of the card, including the title and any additional information or actions related to the card.</p>
-            <div class="flex justify-between mb-2">
-                <div class="rounded-3xl bg-green-200 px-3 py-1 text-green-800">${data.plants.category}</div>
-                <div class="font-bold">৳${data.plants.price}</div>
-            </div>
-            <button class="btn bg-gray-800 text-white rounded-3xl w-full" onclick="document.getElementById('plant-modal').classList.remove('modal-open')">Close</button>
+            <p class="text-justify mb-2"><i class="fa-solid fa-cannabis"></i> <span class="font-semibold">Description:</span> ${data.plants.description}</p>
+            <p><i class="fa-solid fa-bangladeshi-taka-sign"></i> <span class="font-semibold">Price:</span> ৳${data.plants.price}</p>
+            <p class="mt-2"><i class="fa-solid fa-tag"></i> <span class="font-semibold">Category:</span> ${data.plants.category}</p>
+            <button class="btn bg-gray-800 text-white rounded-3xl w-full mt-2" onclick="document.getElementById('plant-modal').classList.remove('modal-open')">Close</button>
       `;
             const modal = document.getElementById('plant-modal');
             modal.classList.add('modal-open');
