@@ -159,6 +159,7 @@ function removeFromCart(name) {
     const updatedCart = cart.filter(item => item.name !== name);
     saveCartItems(updatedCart);
     updateCartDisplay();
+    alert('Item removed from cart');
 }
 
 function setActiveCategory(categoryId) {
