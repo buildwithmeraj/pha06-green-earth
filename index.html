@@ -13,7 +13,7 @@
 <body>
     <header>
         <nav>
-            <div class="navbar bg-[#15803D] text-white shadow-sm md:px-32">
+            <div class="navbar bg-[#15803D] text-white shadow-sm md:px-10 lg:px-32">
                 <div class="navbar-start">
                     <div class="dropdown">
                         <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
@@ -49,8 +49,8 @@
     </header>
     <main class="bg-[#F0FDF4]">
         <div
-            class="bg-[#CFF0DC] m-0 w-full grid grid-cols-1 md:grid-cols-3 justify-items-center pb-6 pt-6 md:pb-0 md:pt-6">
-            <div class="hidden md:block"><img src="assets/hero-leaf1.png" alt="leaf"></div>
+            class="bg-[#CFF0DC] m-0 w-full grid grid-cols-1 md:grid-cols-3 justify-items-center pb-6 pt-6 md:pb-4 md:pt-8 lg:pb-0 lg:pt-6">
+            <div class="hidden md:block md:mb-0"><img src="assets/hero-leaf1.png" alt="leaf"></div>
             <div class="text-center self-center">
                 <h1 class="font-bold text-4xl">Plant a Tree, Grow a Future</h1>
                 <p class="text-gray-500 text-sm p-4">Join our mission to plant 1 million trees and make the Earth
@@ -63,19 +63,21 @@
         </div>
 
         <h1 class="font-bold text-2xl text-center mt-6 mb-6 md:mt-24 md:mb-10">Choose Your Trees</h1>
-        <div class="grid grid-cols-1 md:grid-cols-6 md:gap-4 md:px-32">
-            <div class="bg-white p-4 rounded-xl h-fit">
+        <div
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 md:gap-6 lg:gap-4 md:mx-auto md:px-10 lg:px-32 md:justify-items-between">
+            <div class="bg-white p-4 rounded-xl h-fit w-full">
                 <h1 class="font-bold text-xl">Categories</h1>
-                <div id="categories">
+                <div id="categories" class="">
                     <div class="text-center"><span class="loading loading-bars loading-xs"></span></span></div>
                 </div>
             </div>
-            <div class="col-span-4 mt-6 md:mt-0 grid md:grid-cols-3 md:gap-4 justify-center" id="plants">
+            <div class="col-span-4 mt-6 md:mt-0 grid md:grid-cols-2 lg:grid-cols-3 md:gap-4 justify-center md:order-last lg:order-none"
+                id="plants">
                 <div></div>
                 <div class="text-center"><span class="animate-pulse loading loading-ring loading-xl"></span></div>
                 <div></div>
             </div>
-            <div class="bg-white p-4 rounded-xl h-fit mt-6 md:mt-0">
+            <div class="bg-white p-4 rounded-xl h-fit w-full mt-6 md:mt-0 lg:order-none">
                 <h1 class="font-bold text-xl">Your Cart</h1>
                 <div id="cart">
                     <div class="text-center"><span class="loading loading-bars loading-xs"></span></div>
@@ -84,12 +86,12 @@
         </div>
 
         <h2 class="font-bold text-2xl text-center pt-10 md:pt-24">About the Campaign</h2>
-        <div class="grid md:grid-cols-6 items-center justify-items-center md:gap-4 pt-10 px-4 mx-auto">
+        <div class="grid lg:grid-cols-6 items-center justify-items-center md:gap-4 pt-10 px-4 mx-auto">
             <div></div>
-            <div class="col-span-4">
+            <div class="lg:col-span-4">
                 <div class="grid md:grid-cols-2 items-center">
                     <div class="pb-4 md:pb-0"><img src="assets/about.png" alt="About"></div>
-                    <div>
+                    <div class="md:pl-6 text-justify">
                         <p>Green Earth is a global tree plantation initiative dedicated to fighting climate change.
                             Since our start, we’ve planted over 500,000 trees orldwide. By joining our campaign, you
                             help restore forests, create habitats for wildlife, and combat global warming.</p>
@@ -106,7 +108,7 @@
         <div class="bg-[#CFF0DC] mt-8 md:mt-24">
             <h2 class="font-bold text-2xl text-center pt-4 md:pt-10 mb-4 md:mb-10">Our Impact</h2>
             <div
-                class="w-full grid md:grid-cols-3 gap-6 px-10 md:px-24 justify-center text-center justify-items-center items-center pb-10 md:pb-24">
+                class="w-full grid md:grid-cols-3 gap-6 px-10 lg:px-24 justify-center text-center justify-items-center items-center pb-10 lg:pb-24">
                 <div class="bg-white p-10 w-full rounded-xl"><span
                         class="font-bold text-2xl text-[#15803D]">500K+</span><br /><span
                         class="text-sm text-gray-600">Trees
@@ -124,7 +126,7 @@
         </div>
     </main>
     <footer class="bg-[#166534] text-center text-white">
-        <div class="p-4 md:p-24">
+        <div class="p-4 md:p-10 lg:p-24">
             <h2 class="font-semibold text-2xl pb-4 md:pb-10">Plant a Tree Today</h2>
             <div class="bg-[#15803D] p-10 rounded-lg inline-block mx-auto">
                 <input type="text" placeholder="Your Name" class="input w-full mb-2 placeholder-gray-700" />
