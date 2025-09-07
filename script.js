@@ -140,9 +140,9 @@ function addToCart(name, price) {
         const newItem = { name, price };
         cart.push(newItem);
     }
-
     saveCartItems(cart);
     updateCartDisplay();
+    alert('Item added to cart');
 }
 
 function saveCartItems(cart) {
