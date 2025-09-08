@@ -9,13 +9,14 @@ window.addEventListener("load", async function () {
         .then(data => {
             const cats = document.getElementById('categories');
             cats.innerHTML = '';
+            const catElement = document.createElement('div');
+            catElement.innerHTML = `<div class="mt-2 p-1 hover:bg-green-700 hover:text-white w-full hover:rounded hover:cursor-pointer" onclick="loadPlants('https://openapi.programming-hero.com/api/plants'); setActiveCategory(99)" id="cat99"><i class="fa-solid fa-tree"></i> All Plants</div>
+      `;
+            cats.appendChild(catElement);
             for (const category of data.categories) {
                 const catElement = document.createElement('div');
-                catElement.className = '';
                 catElement.innerHTML = `<div class="mt-2 p-1 hover:bg-green-700 hover:text-white w-full hover:rounded hover:cursor-pointer" onclick="loadCategory('${category.id}')" id="cat${category.id}"><i class="fa-solid fa-tree"></i> ${category.category_name}</div>
       `;
-
-                // Append to container
                 cats.appendChild(catElement);
             }
         })
@@ -31,6 +32,10 @@ window.addEventListener("load", async function () {
 })
 
 function loadPlants(url) {
+    // show loader
+    const plants = document.getElementById('plants').innerHTML = `<div></div>
+                <div class="text-center"><span class="animate-pulse loading loading-ring loading-xl"></span></div>
+                <div></div>`;
     // get all plants
     fetch(url)
         .then(response => {
@@ -42,7 +47,7 @@ function loadPlants(url) {
         .then(data => {
             const plants = document.getElementById('plants');
             plants.innerHTML = '';
-            data.plants.slice(0, 12).forEach(plant => {
+            for (const plant of data.plants) {
                 const plantElement = document.createElement('div');
                 plantElement.innerHTML = `<div class="card bg-base-100 w-full shadow-sm">
                     <figure class="p-4">
@@ -62,10 +67,8 @@ function loadPlants(url) {
                     </div>
                 </div>
       `;
-
-                // Append to container
                 plants.appendChild(plantElement);
-            });
+            };
         })
         .catch(error => {
             console.error('Error:', error);
@@ -139,10 +142,11 @@ function addToCart(name, price) {
     if (!existingItem) {
         const newItem = { name, price };
         cart.push(newItem);
+        alert('Item added to cart');
+
     }
     saveCartItems(cart);
     updateCartDisplay();
-    alert('Item added to cart');
 }
 
 function saveCartItems(cart) {
@@ -163,6 +167,9 @@ function removeFromCart(name) {
 }
 
 function setActiveCategory(categoryId) {
+    if (!categoryId) {
+        categoryId = '99';
+    }
     const childElements = document.getElementById('categories').querySelectorAll('*');
     childElements.forEach(child => {
         child.classList.remove('bg-green-700', 'text-white', 'rounded', 'cursor-pointer');
