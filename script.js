@@ -10,7 +10,7 @@ window.addEventListener("load", async function () {
             const cats = document.getElementById('categories');
             cats.innerHTML = '';
             const catElement = document.createElement('div');
-            catElement.innerHTML = `<div class="mt-2 p-1 hover:bg-green-700 hover:text-white w-full hover:rounded hover:cursor-pointer" onclick="loadPlants('https://openapi.programming-hero.com/api/plants'); setActiveCategory(99)" id="cat99"><i class="fa-solid fa-tree"></i> All Plants</div>
+            catElement.innerHTML = `<div class="mt-2 p-1 hover:bg-green-700 hover:text-white w-full hover:rounded hover:cursor-pointer bg-green-700 text-white rounded" onclick="loadPlants('https://openapi.programming-hero.com/api/plants'); setActiveCategory(99)" id="cat99"><i class="fa-solid fa-tree"></i> All Plants</div>
       `;
             cats.appendChild(catElement);
             for (const category of data.categories) {
